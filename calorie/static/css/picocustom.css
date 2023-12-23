@@ -1,0 +1,8 @@
+@media (min-width: 1200px) {
+    body > footer,
+    body > header,
+    body > main,
+    section {
+      --block-spacing-vertical: calc(var(--spacing) * 2); /* default is var(--spacing) * 4 */
+    }
+}

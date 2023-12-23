@@ -1,0 +1,139 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Required Calories</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Required Calories</h2>
+
+        {% if username.user.username %}
+        <p>Welcome, {{ username }}!</p>
+        {% if calories %}
+        <p>The total calories required for the active user is: {{ calories }} calories per day.</p>
+        {% else %}
+        <p>No calorie information available for the active user.</p>
+        {% endif %}
+        {% else %}
+        <p>User is not authenticated. Please log in.</p>
+        {% endif %}
+        
+            
+            
+            <form id="info" method="post" action="{% url 'save_calories' %}">
+                {% csrf_token %}
+            <input type="hidden" name="username" value="{{ username.user.username }}">
+            <br>
+            <input type="hidden" name="calories" value="{{ calories }}">
+            <label for="calories_consumed">Calories Consumed:</label>
+            <input type="number" id="calories_consumed" name="calories_consumed">
+            <button type="submit">Save</button>
+            <br><br>
+            </form>
+            <form id="dailyActivityForm" method="post" onsubmit="fetchCalories(event)">
+            
+            <label for="foodItem">Food Item:</label>
+            <input type="text" id="Item" name="foodItem" required>
+            <br>
+            <button type="button" onclick="addItem()">Add</button>
+            <label for="itemQuantity">Item Quantity:</label>
+            <input type="text" id="Quantity" name="itemQuantity" value="1" >
+            <button type="button" onclick="subtractItem()">Subtract</button>
+            <br>
+
+            <label for="calories">Calories:</label>
+            <input type="text" id="calories" name="calories" readonly>
+            <br>
+            
+            
+            <button type="submit">Fetch</button>
+            <button type="button" onclick="addDb()">AddToDb</button>
+            
+            <br>
+        </form>
+        
+    </div>
+
+    
+    
+    
+
+
+    <script>
+        async function fetchCalories(event) {
+            event.preventDefault();
+
+            let foodName = document.getElementById('Item').value;
+
+            if (foodName) {
+                console.log(foodName)
+                // Your Edamam API credentials
+                var appId = 'cc580c94';
+                var appKey = '798280decd10edd3b47848a33a27f8b6';
+
+                // Construct the API endpoint
+                var apiUrl = `https://api.edamam.com/api/food-database/v2/parser?app_id=${appId}&app_key=${appKey}&ingr=${foodName}&nutrition-type=cooking`;
+
+                try {
+                    // Fetch data from the Edamam API
+                    var response = await fetch(apiUrl);
+                    var data = await response.json();
+
+                    // Check if the API request was successful
+                    if (response.ok && data.parsed.length > 0) {
+                        // Display the calories in the entry box
+                        let calorie = data.parsed[0].food.nutrients.ENERC_KCAL;
+                        document.getElementById('calories').value = calorie.toFixed(2);
+                        totalCal();
+                    } else {
+                        alert('Error fetching calories. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                    alert('An error occurred. Please try again.');
+                }
+            } else {
+                alert('Please enter a food name.');
+            }
+        }
+
+        function addItem() {
+            let itemNo = parseInt(document.getElementById('Quantity').value);
+            document.getElementById('Quantity').value = itemNo + 1;
+        }
+
+        function subtractItem() {
+            let itemNo = parseInt(document.getElementById('Quantity').value);
+            if (itemNo > 1) {
+                document.getElementById('Quantity').value = itemNo - 1;
+            }
+        }
+
+        function totalCal() {
+            var itemNo = parseInt(document.getElementById('Quantity').value);
+            var cal = parseInt(document.getElementById('calories').value);
+            var total = itemNo * cal;
+            document.getElementById('calories').value = total;
+        }
+
+        
+	function redirectToUrl(url) {
+        console.log("ho")
+        window.location.href = url;
+    }
+    function addDb(){
+        let session_cal=document.getElementById('calories').value;
+        document.getElementById('calories_consumed').value=session_cal;
+    }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="{% static 'pico-1.5.10/css/pico.min.css'%}">
+		<link rel="stylesheet" href="{% static 'css/picocustom.css'%}">
+		<title>mysite.com</title>
+	</head>
+
+<body>
+	<nav>
+		<ul>
+			<li><button onclick="redirectToUrl('/profile/')"><i class="fa-solid fa-user"></i></button></li>		</ul>
+		<ul>
+			
+			
+		  
+		  <li><button onclick="redirectToUrl('/dashboard/')" class="outline">dashboard</button></li>
+		  <li><button onclick="redirectToUrl('/logout/')" class="outline">logout</button></li>
+		  <li><button onclick="redirectToUrl('/login/')" class="outline">login</button></li>
+		  <li><a href="" role="button" class="outline">Blog</a></li>		 
+		  <li><a href="#Contact" role="button" class="outline">Contact</a></li>		</ul>
+	  </nav>
+	  <img src="{% static 'images/bg.jpg' %}">
+	  <form id="calorieForm" onsubmit="calculateCalories(event)">
+        <label>
+            Gender:
+            <input type="radio" name="gender" value="male" required> Male
+            <input type="radio" name="gender" value="female" required> Female
+        </label>
+
+        <br>
+
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" name="height" placeholder="Enter height" required>
+
+        <br>
+
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" name="weight" placeholder="Enter weight" required>
+
+        <br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" placeholder="Enter age" required>
+
+        <br>
+        <input type="submit" value="Calculate Calories">
+
+        <br>
+        <label for="calories">Calories Required:</label>
+        <input type="text" id="calories" name="calories" readonly>
+
+        <br>
+
+        
+    </form>
+
+    <script>
+        function calculateCalories(event) {
+            event.preventDefault();
+
+            var height = parseFloat(document.getElementById('height').value);
+            var weight = parseFloat(document.getElementById('weight').value);
+            var age = parseFloat(document.getElementById('age').value);
+            var gender = document.querySelector('input[name="gender"]:checked');
+
+            if (height && weight && age && gender) {
+                var bmr;
+                if (gender.value === 'male') {
+                    bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+                } else {
+                    bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+                }
+
+                // Display the result on the page
+                document.getElementById('calories').value = bmr.toFixed(0);
+            } else {
+                alert('Please fill in all the required fields.');
+            }
+        }
+    </script>
+
+	  <section id="About">
+	  <article>
+		<header><h1>About Me</h1></header>
+		<p>Hello! I'm a mechanical engineer with a passion for coding and a love for philosophy books.</p>
+
+        <p>In my engineering work, I enjoy solving complex problems and designing innovative solutions. Outside of the technical realm, I find joy in exploring the world of programming and software development.</p>
+
+        <p>When I'm not immersed in the world of machines and code, you'll likely find me curled up with a good philosophy book, contemplating the mysteries of life.</p>
+		<details>
+			<summary role="button">Mechanical Engineering</summary>
+			<p>…</p>
+		  </details>
+		  
+		  <!-- Secondary -->
+		  <details>
+			<summary role="button" class="secondary">Coding and Programming</summary>
+			<p>…</p>
+		  </details>
+		  
+		  <!-- Contrast -->
+		  <details>
+			<summary role="button" class="contrast">Philosophy & Books</summary>
+			<p>…</p>
+		  </details>
+		
+	  </article>
+	</section>
+<br><br>
+<section id="Blog">
+<!--blogs-->
+<h1>BLOGS</h1>
+	  <form>
+		<div class="grid">
+			<div class="container card">
+				<a href="">
+			  <img class="img1"
+				src="https://images.pexels.com/photos/70069/pexels-photo-70069.jpeg"
+			  />
+			  <h4 class="title">Why do birds sing in the morning?</h4>
+			  <div class="metadata">
+				<span>David Uzondu</span>
+				<span>13 Minutes ago</span>
+			  </div>
+			  </a>
+			</div>
+		  
+			<div class="container card">
+			  <img class="img1"
+				src="https://images.pexels.com/photos/1024510/pexels-photo-1024510.jpeg"
+			  />
+			  <h4 class="title">The Secret Life of Ducklings</h4>
+			  <div class="metadata">
+				  <span>Sam Holland</span>
+				  <span>53 Minutes ago</span>
+			  </div>
+			</div>
+		  
+			<div class="container card">
+			  <img class="img1"
+				src="https://images.pexels.com/photos/2152/sky-earth-space-working.jpg"
+			  />
+			  <h4 class="title">NASA's New Mission: Sending Flat-Earthers to 
+			  Edge of Earth to Prove Them Wrong</h4>
+			  <div class="metadata">
+				<span>Simon Peterson</span>
+				<span>1 hour ago</span>
+			  </div>
+			</div>
+		  
+			<div class="container card">
+			  <img class="img1"
+				src="https://images.pexels.com/photos/12086689/pexels-photo-12086689.jpeg"
+			  />
+			  <h4 class="title">Local Grandma Wins International Hip-Hop Dance Battle, 
+			  Proves Age is Just a Number</h4>
+			  <div class="metadata">
+				<span>Anonymous</span>
+				<span>2 days ago</span>
+			  </div>
+			</div>
+		  </div>
+<br><br>
+</section>
+<section id="Contact">
+		<!-- Grid -->
+		<h1>Contact us</h1>
+		<div class="grid">
+	  
+		  <!-- Markup example 1: input is inside label -->
+		  <label for="firstname">
+			First name
+			<input type="text" id="firstname" name="firstname" placeholder="First name" required>
+		  </label>
+	  
+		  <label for="lastname">
+			Last name
+			<input type="text" id="lastname" name="lastname" placeholder="Last name" required>
+		  </label>
+	  
+		</div>
+	  
+		<!-- Markup example 2: input is after label -->
+		<label for="email">Email address</label>
+		<input type="email" id="email" name="email" placeholder="Email address" required>
+		<small>We'll never share your email with anyone else.</small>
+	  
+		<!-- Button -->
+		<button type="submit">Submit</button>
+	</section>
+</body>
+<script>
+	function redirectToUrl(url) {
+        window.location.href = url;
+    }
+</script>
+</html>

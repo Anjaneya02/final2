@@ -1,0 +1,59 @@
+button:hover {
+    background-color: black;  /* Change the background color to black on hover */
+    color: white;  /* Change text color to white on hover */
+}
+nav ul li a:hover {
+    background-color: black;  /* Change the background color to black on hover */
+    color: white;  /* Change text color to white on hover */
+}
+.img1 {
+    width: 100%;
+    background-size: cover;
+    border-radius: 10px;
+    height: 250px;
+}
+
+.card {
+    background-color: rgb(244, 244, 244);
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    background-color: lightblue;
+}
+
+.metadata {
+    margin-top: -30px;
+    margin-bottom: 10px;
+}
+
+.title {
+    margin-top: 10px;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.metadata {
+    font-size: 14px;
+}
+
+span:nth-child(1)::after {
+    content: " -";
+}
+.a{
+    text-decoration: none;
+}
+@media (min-width: 1000px) {
+    body > footer,
+    body > header,
+    body > main,
+    section {
+      --block-spacing-vertical: calc(var(--spacing) * 4); /* default is var(--spacing) * 4 */
+    }
+  }
